@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+* {
+  font-family: 'Patrick Hand', cursive, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -11,6 +17,7 @@ body {
   width: 500px;
   height: auto;
   text-align: center;
+  background-color: rgb(129, 129, 129);
 }
 
 .calculator, .display, .controls {
@@ -23,6 +30,26 @@ body {
   padding: 0.8rem;
   border: 2px solid rgb(15, 14, 14);
   border-radius: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  background-color: rgb(92, 91, 91);
+}
+
+.controls {
+  cursor: pointer;
+  background-color: rgb(173, 94, 65);
+}
+
+.digits:active, .operators:active, .point:active, .controls:active {
+  background-color: rgb(57, 59, 185);
+  transform: scale(0.8);
+}
+
+.display {
+  font-size: 3rem;
+  text-align: right;
+  background-color: rgba(1, 71, 1, 0.849);
+  color: rgb(182, 166, 161);
 }
 
 .keyboard-container {

@@ -12,21 +12,31 @@ let countClick = 0;
 let num1 = '';
 let num2 = '';
 
-digitsBtns.forEach(digit => {
-  digit.addEventListener('click', () => {
-    if(displayNumber.length <= 14) {
-    displayNumber += digit.innerText;
-    display.innerText = displayNumber;
-    }
-  });
-});
+digitsBtns.forEach(d => d.addEventListener('click', () => enterNumber(d)));
 
-pointBtn.addEventListener('click', () => {
-  if(!displayNumber.includes('.')) displayNumber += '.';
-});
+pointBtn.addEventListener('click', enterDecimalPoint);
 
 deleteBtn.addEventListener('click', deleteB);
+
 clearBtn.addEventListener('click', clearAll);
+
+function enterNumber(digit) {
+  if(displayNumber.length <= 14) {
+  displayNumber += digit.textContent;
+  display.innerText = displayNumber;
+  }
+}
+// add
+function digBtnsActions(dig) {
+  if (num1) {
+    displayNumber = '';
+    enterNumber(dig);
+  }
+}
+// *add
+function enterDecimalPoint() {
+  if(!displayNumber.includes('.')) displayNumber += '.';
+}
 
 function clearAll() {
   display.innerText = '0';
@@ -41,4 +51,33 @@ function deleteB() {
     if(!displayNumber.length) display.innerText = '0';
     else display.innerText = displayNumber;
   }
+}
+// add
+function opBtnActions() {
+  if (displayNumber !== '') {
+    num1 = displayNumber;
+  } 
+}
+// *add
+function addition(a, b) {
+  return a + b;
+}
+
+function subtraction(a, b) {
+  return a - b;
+}
+
+function product(a, b) {
+  return a * b;
+}
+
+function division(a, b) {
+  return a / b;
+}
+
+function operate(operator, a, b) {
+  if(operator === '+') displayNumber = `${addition(a, b)}`;
+  if(operator === '-') displayNumber = `${subtraction(a, b)}`;
+  if(operator === '*') displayNumber = `${product(a, b)}`;
+  if(operator === '/') displayNumber = `${division(a, b)}`;
 }

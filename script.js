@@ -8,14 +8,15 @@ const digitsBtns = document.querySelectorAll('.digits');
 const operatorBtns = document.querySelectorAll('.operators');
 
 let displayNumber = '';
-let countClick = 0;
 let num1 = '';
 let num2 = '';
 let op = '';
 
 digitsBtns.forEach(d => d.addEventListener('click', () => digBtnsActions(d)));
 
-operatorBtns.forEach(b => b.addEventListener('click', () => opBtnActions(b)))
+operatorBtns.forEach(b => b.addEventListener('click', () => opBtnActions(b)));
+
+equalBtn.addEventListener('click', equalBtnActions);
 
 pointBtn.addEventListener('click', enterDecimalPoint);
 
@@ -24,14 +25,16 @@ deleteBtn.addEventListener('click', deleteB);
 clearBtn.addEventListener('click', clearAll);
 
 function enterNumber(digit) {
+  if (displayNumber.charAt() === 'Z') return;
   if(displayNumber.length <= 14) {
   displayNumber += digit.textContent;
   display.innerText = displayNumber;
   }
   console.log(displayNumber);
 }
-// add
+
 function digBtnsActions(dig) {
+  if (displayNumber.charAt() === 'Z') return;
   if (num1) {
     num2 = num1;
     num1 = '';
@@ -39,7 +42,7 @@ function digBtnsActions(dig) {
     enterNumber(dig);
   } else enterNumber(dig);
 }
-// *add
+
 function enterDecimalPoint() {
   if(!displayNumber.includes('.')) displayNumber += '.';
 }
@@ -53,13 +56,27 @@ function clearAll() {
 }
 
 function deleteB() {
+  if (displayNumber.charAt() === 'Z') return;
   if(displayNumber.length) {
     displayNumber = displayNumber.slice(0, -1);
     if(!displayNumber.length) display.innerText = '0';
     else display.innerText = displayNumber;
   }
 }
-// add
+
+function equalBtnActions() {
+  if (displayNumber.charAt() === 'Z') return;
+  if (op) {
+    if (num2 && num1) {
+      operate(op, num2, num1);
+      op = '';
+    } else if (!num1 && displayNumber) {
+      operate(op, num2, displayNumber);
+      op = '';
+    }
+  }
+}
+
 function opBtnActions(btn) {
   if (!op) op = btn.textContent;
   if (displayNumber) {
@@ -73,7 +90,7 @@ function opBtnActions(btn) {
     num1 = displayNumber;
   }
 }
-// *add
+
 function addition(a, b) {
   return +a + +b;
 }
@@ -87,6 +104,7 @@ function product(a, b) {
 }
 
 function division(a, b) {
+  if (!+b) return 'Zero div Err, press clear';
   return +a / +b;
 }
 
